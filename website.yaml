@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: httpddep
 spec:
   selector:
     matchLabels:
-      run: nginx
+      run: httpd
   replicas: 2
   template:
     metadata:
       labels:
-        run: nginx
+        run: httpd
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.7.9
+      - name: httpd
+        image: dhruvin30/dhsoniweb:latest
         ports:
         - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx 
+  name: website 
   labels:
-    run: nginx
+    run: httpd
 spec:
   ports:
   - port: 80
     protocol: TCP
   selector:
-    run: nginx
+    run: httpd
   type: LoadBalancer
